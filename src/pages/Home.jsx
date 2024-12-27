@@ -2,16 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useStore from "../store";
 import { Link } from "react-router-dom";
+import userStore from "../store/user";
+import { axiosInstance } from "../client/api";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const { cart, reduceItemInCart, addProducttoCart, getTotalPrice } =
     useStore();
 
+  const { logout, user } = userStore();
+
   const fetchData = async () => {
     try {
-      const response = await axios("http://localhost:3000/products");
-      const productsData = [...response.data.products];
+      const response = await axiosInstance.get("/products");
+      const productsData = [...response.data];
 
       setProducts(productsData);
     } catch (error) {
@@ -27,6 +31,19 @@ const Home = () => {
 
   return (
     <div style={{ padding: "20px" }}>
+      {user ? (
+        <>
+          <button onClick={logout}>Log Out</button>
+          <Link to={"/profile"}>Profile</Link>
+          <Link to={"/cart"}>Cart</Link>
+        </>
+      ) : (
+        <>
+          <Link to={"/profile"}>Profile</Link>
+          <Link to={"/login"}>Login</Link>
+        </>
+      )}
+
       {/* Header for cart details */}
       {cart.map((cartItem) => (
         <div key={cartItem.cartId}>
@@ -78,7 +95,9 @@ const Home = () => {
               textAlign: "center",
             }}
           >
-            <Link to={`/products/${product._id}`}>Details Page{product._id}</Link>
+            <Link to={`/products/${product._id}`}>
+              Details Page{product._id}
+            </Link>
 
             <img
               src={product.thumbnail}
