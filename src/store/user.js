@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
 const userStore = create(
   persist(
     (set) => ({
@@ -24,5 +25,7 @@ const userStore = create(
     }
   )
 );
+
+export const authToken = userStore.getState().token;
 
 export default userStore;

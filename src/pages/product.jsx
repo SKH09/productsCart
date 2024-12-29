@@ -1,19 +1,19 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { axiosInstance } from "../client/api";
+import useStore from "../store";
 
 const Product = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState();
+  const { addProducttoCart } = useStore();
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/products/${productId}`
-      );
-      console.log(response.data);
-      setProduct(response.data);
+      const response = await axiosInstance.get(`/products/${productId}`);
+      console.log(response.data.product);
+      setProduct(response.data.product);
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +35,13 @@ const Product = () => {
       product
       <p>{product?.name}</p>
       <p>{product?.description}</p>
+      <button
+        onClick={() => {
+          addProducttoCart(product);
+        }}
+      >
+        Add to Cart
+      </button>
       <img src={product?.image} width={400} height={400} /> {productId}
     </div>
   );

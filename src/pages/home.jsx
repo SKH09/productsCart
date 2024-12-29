@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useStore from "../store";
 import { Link } from "react-router-dom";
@@ -86,7 +85,7 @@ const Home = () => {
       >
         {products.map((product) => (
           <div
-            key={product._id}
+            key={product.id}
             style={{
               border: "1px solid #ddd",
               padding: "16px",
@@ -95,8 +94,8 @@ const Home = () => {
               textAlign: "center",
             }}
           >
-            <Link to={`/products/${product._id}`}>
-              Details Page{product._id}
+            <Link to={`/products/${product.id}`}>
+              Details Page{product.id}logging product id
             </Link>
 
             <img

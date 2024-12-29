@@ -7,6 +7,10 @@ const useStore = create(
     persist(
       (set, get) => ({
         cart: [],
+        clientSecret: null,
+        updateClientSecret: (clientSecret) => {
+          set({ clientSecret });
+        },
         counter: 0,
         setCart: (cartItems) => {
           const { cart } = get();
@@ -51,7 +55,9 @@ const useStore = create(
               title: product.title,
               price: product.price,
               quantity: 1,
+              image: product.image,
             };
+            console.log(cartItem);
             const updatedCart = [...cart, cartItem];
             set({
               cart: updatedCart,
@@ -73,6 +79,15 @@ const useStore = create(
           set({
             cart: filteredCartItems,
           });
+        },
+
+        //getting the total items in cart
+        getTotalCartItems: () => {
+          const { cart } = get();
+          const totalPrice = cart.reduce((sum, element) => {
+            return (sum += element.quantity);
+          }, 0);
+          return totalPrice;
         },
       }),
       { name: "cart" }

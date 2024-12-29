@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { axiosInstance } from "../client/api";
 import userStore from "../store/user";
 import { useNavigate } from "react-router-dom";
 import vine from "@vinejs/vine";
 import { vineResolver } from "@hookform/resolvers/vine";
+import { axiosInstance } from "../client/api";
 
 const schema = vine.compile(
   vine.object({
@@ -24,7 +24,7 @@ const Login = () => {
       const { email, password } = getValues();
 
       console.log("sending login request with: ", { email, password });
-      const response = await axiosInstance.post("/users/login", {
+      const response = await axiosInstance.post("/auth/login", {
         email,
         password,
       });
