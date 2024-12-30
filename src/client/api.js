@@ -2,7 +2,7 @@ import axios from "axios";
 import { authToken } from "../store/user";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/", // Replace with your backend's URL
+  baseURL: "https://elysiaapis.onrender.com", // Replace with your backend's URL
   timeout: 10000,
   headers: {
     "X-Custom-Header": "foobar",
