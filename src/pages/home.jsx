@@ -95,11 +95,10 @@ const Home = () => {
             }}
           >
             <Link to={`/products/${product.id}`}>
-              Details Page{product.id}logging product id
+              Details Page - <b>{product.id}</b> - logging product id
             </Link>
-
             <img
-              src={product.thumbnail}
+              src={product.image}
               alt={product.title}
               style={{
                 width: "100%",
@@ -108,7 +107,7 @@ const Home = () => {
                 borderRadius: "8px",
               }}
             />
-            <h3 style={{ margin: "10px 0" }}>{product.title}</h3>
+            <h3 style={{ margin: "10px 0" }}>{product.name}</h3>
             <p>Price: ${product.price}</p>
 
             {/* /buttons */}
@@ -128,7 +127,6 @@ const Home = () => {
               >
                 -
               </button>
-
               {/* Increment button */}
               <button onClick={() => addProducttoCart(product)}>+</button>
             </div>
