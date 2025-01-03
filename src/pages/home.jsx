@@ -127,13 +127,13 @@ const Home = () => {
             <div className="flex items-center justify-center gap-4">
               <button
                 onClick={() => reduceItemInCart(product.id)}
-                className="w-10 h-10 bg-red-500 text-white rounded-full hover:bg-red-600"
+                className="bg-red-500 text-white px-4 py-2 rounded-3xl hover:bg-red-600"
               >
                 -
               </button>
               <button
                 onClick={() => addProducttoCart(product)}
-                className="w-10 h-10 bg-green-500 text-white rounded-full hover:bg-green-600"
+                className="bg-green-500 text-white px-4 py-2 rounded-3xl hover:bg-green-600"
               >
                 +
               </button>
