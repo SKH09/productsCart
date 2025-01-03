@@ -8,14 +8,12 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const { cart, reduceItemInCart, addProducttoCart, getTotalPrice } =
     useStore();
-
   const { logout, user } = userStore();
 
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get("/products");
       const productsData = [...response.data];
-
       setProducts(productsData);
     } catch (error) {
       console.log(error);
@@ -29,23 +27,63 @@ const Home = () => {
   const totalPrice = getTotalPrice();
 
   return (
-    <div style={{ padding: "20px" }}>
-      {user ? (
-        <>
-          <button onClick={logout}>Log Out</button>
-          <Link to={"/profile"}>Profile</Link>
-          <Link to={"/cart"}>Cart</Link>
-        </>
-      ) : (
-        <>
-          <Link to={"/profile"}>Profile</Link>
-          <Link to={"/login"}>Login</Link>
-        </>
-      )}
+    <div className="p-8">
+      {/* User Actions */}
+      <div className="flex justify-between items-center mb-6">
+        {user ? (
+          <div className="flex gap-4">
+            <button
+              onClick={logout}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Log Out
+            </button>
+            <Link
+              to="/profile"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Profile
+            </Link>
+            <Link
+              to="/cart"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+              Cart
+            </Link>
+          </div>
+        ) : (
+          <div className="flex gap-4">
+            <Link
+              to="/profile"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Profile
+            </Link>
+            <Link
+              to="/login"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+              Login
+            </Link>
+          </div>
+        )}
+      </div>
 
-      {/* Header for cart details */}
+      {/* Cart Details */}
+      <header className="flex justify-between items-center mb-8 p-4 bg-gray-100 rounded-lg shadow-md">
+        <span className="text-lg font-medium">
+          Items in Cart: {cart.length}
+        </span>
+        <span className="text-lg font-medium">
+          Total Price: ${totalPrice.toFixed(2)}
+        </span>
+      </header>
+
       {cart.map((cartItem) => (
-        <div key={cartItem.cartId}>
+        <div
+          key={cartItem.cartId}
+          className="p-4 mb-4 bg-white rounded-lg shadow-md"
+        >
           <div>Item Name: {cartItem.title}</div>
           <div>Price: ${cartItem.price}</div>
           <div>Quantity: {cartItem.quantity}</div>
@@ -58,77 +96,47 @@ const Home = () => {
                 ),
               });
             }}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           >
             Remove
           </button>
         </div>
       ))}
-      <header
-        style={{
-          marginBottom: "20px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <span>Items in the Cart: {cart.length}</span>
-        <span>Total Price: ${totalPrice.toFixed(2)}</span>
-      </header>
 
       {/* Products Grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "20px",
-          marginTop: "20px",
-        }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "16px",
-              borderRadius: "8px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              textAlign: "center",
-            }}
+            className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
           >
-            <Link to={`/products/${product.id}`}>
-              Details Page - <b>{product.id}</b> - logging product id
+            <Link to={`/products/${product.id}`} className="block mb-2">
+              <span className="text-blue-500 hover:underline">
+                Details Page - <b>{product.id}</b>
+              </span>
             </Link>
             <img
               src={product.image}
               alt={product.title}
-              style={{
-                width: "100%",
-                height: "150px",
-                objectFit: "cover",
-                borderRadius: "8px",
-              }}
+              className="w-full h-40 object-cover rounded-lg mb-4"
             />
-            <h3 style={{ margin: "10px 0" }}>{product.name}</h3>
-            <p>Price: ${product.price}</p>
+            <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+            <p className="text-gray-600 mb-4">Price: ${product.price}</p>
 
-            {/* /buttons */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: "10px",
-                marginTop: "10px",
-              }}
-            >
-              {/* Decrement button */}
+            {/* Action Buttons */}
+            <div className="flex items-center justify-center gap-4">
               <button
-                onClick={() => {
-                  reduceItemInCart(product.id);
-                }}
+                onClick={() => reduceItemInCart(product.id)}
+                className="w-10 h-10 bg-red-500 text-white rounded-full hover:bg-red-600"
               >
                 -
               </button>
-              {/* Increment button */}
-              <button onClick={() => addProducttoCart(product)}>+</button>
+              <button
+                onClick={() => addProducttoCart(product)}
+                className="w-10 h-10 bg-green-500 text-white rounded-full hover:bg-green-600"
+              >
+                +
+              </button>
             </div>
           </div>
         ))}
