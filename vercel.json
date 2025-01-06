@@ -1,5 +1,5 @@
 {
-  "routes": [
+  "rewrites": [
     {
       "source": "/products",
       "destination": "/"
@@ -13,11 +13,19 @@
       "destination": "/"
     },
     {
+      "source": "/profile",
+      "destination": "/"
+    },
+    {
       "source": "/shipping",
       "destination": "/"
     },
     {
       "source": "/checkout",
+      "destination": "/"
+    },
+    {
+      "source": "/cart",
       "destination": "/"
     }
   ]
