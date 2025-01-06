@@ -1,0 +1,24 @@
+{
+  "routes": [
+    {
+      "source": "/products",
+      "destination": "/"
+    },
+    {
+      "source": "/register",
+      "destination": "/"
+    },
+    {
+      "source": "/login",
+      "destination": "/"
+    },
+    {
+      "source": "/shipping",
+      "destination": "/"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/"
+    }
+  ]
+}
