@@ -9,6 +9,15 @@ const Cart = () => {
 
   return (
     <div>
+      <Link
+        to="/shipping"
+        className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-200 transition duration-200"
+      >
+        Shipping
+      </Link>
+      <br />
+      <br />
+      
       Total Price: ${totalPrice}
       {cart.map((cartItem) => {
         return (
@@ -28,7 +37,6 @@ const Cart = () => {
           </div>
         );
       })}
-      <Link to={"/shipping"}>Shipping</Link>
     </div>
   );
 };

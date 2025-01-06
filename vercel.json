@@ -1,31 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/products",
-      "destination": "/"
-    },
-    {
-      "source": "/register",
-      "destination": "/"
-    },
-    {
-      "source": "/login",
-      "destination": "/"
-    },
-    {
-      "source": "/profile",
-      "destination": "/"
-    },
-    {
-      "source": "/shipping",
-      "destination": "/"
-    },
-    {
-      "source": "/checkout",
-      "destination": "/"
-    },
-    {
-      "source": "/cart",
+      "source": "/(.*)",
       "destination": "/"
     }
   ]
