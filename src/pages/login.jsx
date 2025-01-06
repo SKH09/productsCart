@@ -42,21 +42,12 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      {/* Logout Button */}
-      {user && (
-        <button
-          onClick={logout}
-          className="mb-6 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition"
-        >
-          Log Out
-        </button>
-      )}
-
       {/* Login Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm bg-white p-6 rounded shadow-md space-y-4"
       >
+        {/* login */}
         <div>
           <label
             htmlFor="email"
@@ -73,6 +64,7 @@ const Login = () => {
             required
           />
         </div>
+        {/* password */}
         <div>
           <label
             htmlFor="password"
@@ -89,12 +81,34 @@ const Login = () => {
             required
           />
         </div>
+        <p>
+          Dont have an account?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            className="text-blue-500 hover:underline cursor-pointer"
+          >
+            Register here
+          </span>
+        </p>
+        {/* Login button */}
         <button
           type="submit"
           className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition"
         >
           Login
         </button>
+        {/* Logout button */}
+        {user && (
+          <button
+            onClick={() => {
+              logout();
+              navigate("/home");
+            }}
+            className="mb-6 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition"
+          >
+            Log Out
+          </button>
+        )}
       </form>
     </div>
   );
