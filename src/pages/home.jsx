@@ -118,10 +118,17 @@ const Home = () => {
             <img
               src={product.image}
               alt={product.title}
-              className="w-full h-40 object-cover rounded-lg mb-4"
+              className="w-full h-70 object-cover rounded-lg mb-4"
             />
-            <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-            <p className="text-gray-600 mb-4">Price: ${product.price}</p>
+            <h3
+              style={{ textAlign: "center" }}
+              className="text-lg font-semibold mb-2"
+            >
+              {product.name}
+            </h3>
+            <p style={{ textAlign: "center" }} className="text-gray-600 mb-4">
+              Price: ${product.price}
+            </p>
 
             {/* Action Buttons */}
             <div className="flex items-center justify-center gap-4">
