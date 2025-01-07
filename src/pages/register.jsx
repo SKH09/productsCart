@@ -4,21 +4,31 @@ import userStore from "../store/user";
 const Register = () => {
   const { register, getValues, handleSubmit } = useForm();
   const { login, logout } = userStore();
+
   const onSubmit = async () => {
     try {
-      const { name, email, password } = getValues();
+      const { name, email, password, image } = getValues();
 
-      console.log("sending login request with: ", { name, email, password });
-      const response = await axiosInstance.post("/users/", {
+      console.log("sending login request with: ", {
         name,
         email,
         password,
+        image,
       });
-      console.log("logging");
-      console.log("login successful!", response.data);
+      const response = await axiosInstance.post("/users/create", {
+        name,
+        email,
+        password,
+        image,
+      });
+      console.log("user created successfully!", response.data.user);
       login(response.data.user, response.data.token);
     } catch (error) {
-      console.log("error during logging", error);
+      console.error("error during logging", error);
+      if (error.response) {
+        console.log("response error: ", error.response.data);
+        console.log("response status: ", error.response.status);
+      }
     }
   };
 
@@ -39,14 +49,9 @@ const Register = () => {
       >
         {/* Name Input */}
         <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Name
-          </label>
           <input
             id="name"
+            placeholder="Name"
             type="text"
             {...register("name")}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -55,14 +60,9 @@ const Register = () => {
 
         {/* Email Input */}
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Email
-          </label>
           <input
             id="email"
+            placeholder="Email"
             type="email"
             {...register("email")}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -71,19 +71,21 @@ const Register = () => {
 
         {/* Password Input */}
         <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Password
-          </label>
           <input
             id="password"
+            placeholder="Password"
             type="password"
             {...register("password")}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        <input
+          id="image"
+          placeholder="please enter image url here..."
+          type="text"
+          {...register("image")}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
         {/* Submit Button */}
         <input
